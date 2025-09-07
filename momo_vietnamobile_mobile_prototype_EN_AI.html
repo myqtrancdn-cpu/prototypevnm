@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+  <title>MoMo × Vietnamobile • AI Custom Data (Mobile Prototype + AI Consultant)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root { --momo:#a50064; --vnm:#ff6a00; }
+    body { font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial; background:#fef2f9; }
+    .phone { width: 390px; border-radius: 34px; background:#fff; box-shadow: 0 20px 60px rgba(0,0,0,.15); overflow:hidden; border: 10px solid #111; }
+    .chip { padding:.25rem .6rem; border-radius:999px; background:#f3f4f6; font-size:12px; }
+    .chip.active { background: rgba(165,0,100,.1); color:#a50064; font-weight:800; }
+    .btn { border-radius:16px; padding:0.9rem 1rem; font-weight:800; }
+    input[type=range] { accent-color: var(--momo); }
+    .kpi { display:grid; grid-template-columns:1fr 1fr; gap:.6rem; }
+    .kpi > div { background:#fff; border:1px solid #f3e7ef; border-radius:14px; padding:.65rem .5rem; text-align:center; }
+    .kpi .val { font-weight:800; font-size:18px; color:#a50064; }
+    .kpi .lbl { font-size:11px; color:#6b7280; }
+    .note { font-size:11px; color:#6b7280; }
+    .tag { font-size:10px; background:#fff7ed; color:#b45309; padding:.15rem .45rem; border-radius:999px; border:1px solid #fde68a; }
+    .pill { font-size:11px; background:#f3f4f6; color:#334155; padding:.25rem .55rem; border-radius:999px; border:1px solid #e5e7eb; }
+    .hint { font-size:11px; color:#475569; }
+    details summary { cursor: pointer; }
+  </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4">
+  <div class="phone">
+    <!-- Header -->
+    <div class="px-5 py-4 bg-[color:var(--momo)] text-white flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-xl bg-white/15"></div>
+        <div>
+          <div class="text-[11px] opacity-90">Mini App</div>
+          <div class="text-lg font-extrabold tracking-tight">MoMo × Vietnamobile</div>
+        </div>
+      </div>
+      <span class="text-[10px] bg-white/15 px-2 py-1 rounded-lg">BETA</span>
+    </div>
+
+    <!-- Banner -->
+    <div class="px-5 py-4 bg-gradient-to-r from-orange-50 to-pink-50">
+      <div class="text-[11px] text-[color:var(--vnm)] font-bold">AI CUSTOM DATA</div>
+      <div class="text-xl font-extrabold text-gray-900 leading-snug">Create Your Own Data Package</div>
+      <div class="mt-1 text-[12px] text-gray-600">Pick the apps you use. Pay only for what you need.</div>
+      <div class="mt-2 flex gap-2 flex-wrap">
+        <span class="tag">Target ~10–12k/week</span>
+        <span class="tag">Stable connectivity</span>
+        <span class="tag">Student promos</span>
+      </div>
+    </div>
+
+    <div class="p-5 space-y-5">
+      <!-- Phone input -->
+      <div class="grid grid-cols-1 gap-2">
+        <label class="text-sm font-semibold">Vietnamobile number</label>
+        <input id="msisdn" placeholder="e.g., 09xx xxx xxx" class="w-full rounded-2xl border p-3 focus:outline-none focus:ring-2 focus:ring-[color:var(--momo)]"/>
+        <div class="note">Continuing means you agree to credit data to this number after payment.</div>
+      </div>
+
+      <!-- Billing mode -->
+      <div class="flex items-center justify-between">
+        <div class="text-sm font-semibold">Billing mode</div>
+        <div class="flex gap-2">
+          <button id="weeklyTab" class="chip active">Weekly</button>
+          <button id="monthlyTab" class="chip">Monthly</button>
+        </div>
+      </div>
+
+      <!-- Sliders -->
+      <div class="space-y-4">
+        <div>
+          <div class="flex justify-between text-sm"><span>TikTok</span><span><span id="tiktokVal">4</span> GB/day</span></div>
+          <input id="tiktok" type="range" min="0" max="10" value="4" class="w-full">
+        </div>
+        <div>
+          <div class="flex justify-between text-sm"><span>YouTube</span><span><span id="ytVal">8</span> GB/day</span></div>
+          <input id="youtube" type="range" min="0" max="30" value="8" class="w-full">
+        </div>
+        <div>
+          <div class="flex justify-between text-sm"><span>Facebook</span><span><span id="fbVal">3</span> GB/day</span></div>
+          <input id="facebook" type="range" min="0" max="15" value="3" class="w-full">
+        </div>
+        <div>
+          <div class="flex justify-between text-sm"><span>Instagram</span><span><span id="igVal">2</span> GB/day</span></div>
+          <input id="instagram" type="range" min="0" max="12" value="2" class="w-full">
+        </div>
+        <div>
+          <div class="flex justify-between text-sm"><span>Microsoft 365</span><span><span id="msVal">1</span> GB/day</span></div>
+          <input id="ms365" type="range" min="0" max="10" value="1" class="w-full">
+        </div>
+      </div>
+
+      <!-- Student -->
+      <div class="flex items-center gap-3 p-3 rounded-2xl bg-pink-50 border border-pink-200">
+        <input id="student" type="checkbox" class="w-4 h-4">
+        <label for="student" class="text-sm font-semibold">I am a student (15% off M365 + 5% off overall)</label>
+      </div>
+
+      <!-- KPI -->
+      <div class="kpi">
+        <div>
+          <div id="gbDay" class="val">0 GB/day</div>
+          <div class="lbl">Total GB/day</div>
+        </div>
+        <div>
+          <div id="gbWeek" class="val">0 GB/week</div>
+          <div class="lbl">Total GB/week</div>
+        </div>
+      </div>
+
+      <!-- AI Suggestion -->
+      <div class="rounded-2xl bg-gradient-to-r from-pink-100 to-pink-50 p-4">
+        <p class="text-sm font-extrabold text-gray-800">AI Suggestion</p>
+        <p id="aiSuggest" class="text-sm text-gray-700 mt-1">Typical use hits ~10–12k/week with TikTok 4GB + YouTube 8GB/day.</p>
+        <div class="mt-2 flex gap-2 flex-wrap">
+          <span class="pill">I like to optimize my data usage</span>
+          <span class="pill">I wish I could track history</span>
+          <span class="pill">I wonder if I waste data</span>
+        </div>
+      </div>
+
+      <!-- AI Consultant (interactive) -->
+      <div class="rounded-2xl border border-pink-200 p-4 bg-white">
+        <div class="flex items-center justify-between">
+          <p class="text-sm font-extrabold text-gray-800">AI Consultant</p>
+          <div class="text-[11px] hint">Personalized tips based on your sliders & history</div>
+        </div>
+        <ul id="aiTips" class="list-disc ml-5 mt-2 text-sm text-gray-700 space-y-1"></ul>
+        <div class="mt-3 flex gap-2">
+          <button id="optBtn" class="btn bg-[color:var(--momo)] text-white text-sm">Optimize Plan</button>
+          <button id="saveBtn" class="btn bg-gray-900 text-white text-sm">Save to History</button>
+        </div>
+        <details class="mt-3">
+          <summary class="text-sm font-semibold text-gray-800">View History (last 3)</summary>
+          <div id="historyWrap" class="mt-2 space-y-2"></div>
+        </details>
+      </div>
+
+      <!-- Price -->
+      <div class="rounded-2xl bg-pink-100 p-4 text-center">
+        <div class="text-sm font-semibold text-gray-700">Estimated price per <span id="modeLabel">week</span> (after discounts)</div>
+        <div id="price" class="text-3xl font-extrabold text-[color:var(--momo)]">0 ₫</div>
+        <div id="note" class="note mt-1"></div>
+      </div>
+
+      <!-- Actions -->
+      <div class="grid grid-cols-1 gap-3">
+        <button id="payBtn" class="btn bg-[color:var(--momo)] text-white hover:opacity-95">Pay with MoMo/ZaloPay</button>
+        <button id="linkBtn" class="btn bg-gray-900 text-white hover:bg-black">Vietnamobile API (demo)</button>
+      </div>
+
+      <div class="note text-center pb-4">
+        Mobile prototype — runs locally in your browser. Not a real product.
+      </div>
+    </div>
+  </div>
+
+<script>
+  const P = { tiktok:130, youtube:85, facebook:70, instagram:70, ms365:50 }; // VND per GB/day
+  const VAT = 0.08;
+  let billing = 'weekly';
+
+  const el = (id)=>document.getElementById(id);
+  const sliders = ['tiktok','youtube','facebook','instagram','ms365'].map(el);
+  const labels = ['tiktokVal','ytVal','fbVal','igVal','msVal'].map(el);
+  const student = el('student');
+  const priceEl = el('price'); const note = el('note'); const aiSuggest = el('aiSuggest'); const modeLabel = el('modeLabel');
+  const weeklyTab = el('weeklyTab'); const monthlyTab = el('monthlyTab');
+  const gbDay = el('gbDay'); const gbWeek = el('gbWeek');
+  const aiTips = el('aiTips'); const optBtn = el('optBtn'); const saveBtn = el('saveBtn'); const historyWrap = el('historyWrap');
+
+  function fmt(n){ return n.toLocaleString('vi-VN'); }
+  function getVals(){ return sliders.map(s => +s.value); }
+
+  function calc(){
+    const vals = getVals();
+    const [t,y,f,i,m] = vals;
+    labels.forEach((L, idx)=> L.textContent = vals[idx]);
+    const totalGBPerDay = t+y+f+i+m;
+    const totalGBPerWeek = totalGBPerDay * 7;
+    gbDay.textContent = totalGBPerDay + ' GB/day';
+    gbWeek.textContent = totalGBPerWeek + ' GB/week';
+
+    const days = billing==='weekly' ? 7 : 30;
+    let base = (P.tiktok*t + P.youtube*y + P.facebook*f + P.instagram*i + P.ms365*m) * days;
+
+    let disc = 0;
+    if (totalGBPerDay > 25) disc = billing==='weekly' ? 0.12 : 0.15;
+    else if (totalGBPerDay > 15) disc = billing==='weekly' ? 0.08 : 0.10;
+    base *= (1 - disc);
+
+    if (student.checked){
+      const msPart = P.ms365*m*days;
+      base -= msPart * 0.15;
+      base *= 0.95;
+    }
+
+    if (billing==='weekly'){
+      const floor = 8000, ceil = 30000;
+      if (base < floor) base = floor;
+      if (base > ceil) base = ceil - (ceil - base)*0.2;
+    }
+
+    const total = Math.round(base * (1+VAT));
+    priceEl.textContent = fmt(total) + ' ₫';
+
+    let noteParts = [];
+    if (disc) noteParts.push(`Tier discount -${Math.round(disc*100)}%`);
+    if (student.checked) noteParts.push('Student: -15% M365 & -5% overall');
+    note.textContent = noteParts.length ? noteParts.join(' | ') : 'No discount applied.';
+
+    renderAiTips(vals, total, totalGBPerDay);
+  }
+
+  function renderAiTips(vals, total, totalGBPerDay){
+    const [t,y,f,i,m] = vals;
+    const apps = ['TikTok','YouTube','Facebook','Instagram','Microsoft 365'];
+    const shares = vals.map(v => totalGBPerDay ? (v/totalGBPerDay) : 0);
+    const maxShare = Math.max(...shares);
+    const maxIdx = shares.indexOf(maxShare);
+    const tips = [];
+
+    if (maxShare >= 0.5 && totalGBPerDay >= 10){
+      tips.push(`Your ${apps[maxIdx]} takes ${Math.round(maxShare*100)}% of daily data. Reduce it by 20% to save ~10–15%.`);
+    }
+    if (totalGBPerDay >= 20 && billing==='weekly'){
+      tips.push(`Heavy weekly usage detected (${totalGBPerDay} GB/day). Switch to Monthly to save ~15–20%.`);
+    }
+    if (!student.checked && m >= 1){
+      tips.push(`Students save more (15% on M365 + 5% overall). Enable Student mode if applicable.`);
+    }
+    if (billing==='weekly'){
+      const n = total;
+      if (n > 12000){
+        tips.push(`Weekly price is ${fmt(n)}₫ (>12k). Reduce the largest app by 10–20% or move to Monthly.`);
+      } else if (n < 9000 && totalGBPerDay < 8){
+        tips.push(`You're below 9k/week. You can add +1GB/day on a favorite app without exceeding ~12k.`);
+      }
+    }
+
+    const hist = getHistory();
+    if (hist.length){
+      const last = hist[0];
+      if (last.totalGBPerDay && Math.abs(totalGBPerDay - last.totalGBPerDay) >= 5){
+        tips.push(`Vs last setup (${last.totalGBPerDay} GB/day), you're off by ${Math.abs(totalGBPerDay-last.totalGBPerDay)} GB/day. Consider rebalancing.`);
+      }
+    }
+
+    if (!tips.length){
+      tips.push('Looks balanced for ~10–12k/week. You’re good to go!');
+    }
+    aiTips.innerHTML = tips.map(t => `<li>${t}</li>`).join('');
+  }
+
+  function optimize(){
+    let vals = getVals();
+    let [t,y,f,i,m] = vals;
+    const total = t+y+f+i+m;
+
+    if (total >= 20 && billing==='weekly'){
+      setBilling('monthly');
+    }
+
+    const shares = vals.map(v => total ? v/total : 0);
+    const maxShare = Math.max(...shares);
+    const idx = shares.indexOf(maxShare);
+    if (maxShare > 0.6 && vals[idx] > 0){
+      vals[idx] = Math.max(0, Math.round(vals[idx] * 0.8));
+    }
+
+    [t,y,f,i,m] = vals;
+    sliders[0].value = t; sliders[1].value = y; sliders[2].value = f; sliders[3].value = i; sliders[4].value = m;
+    calc();
+  }
+
+  function saveHistory(){
+    const vals = getVals();
+    const [t,y,f,i,m] = vals;
+    const totalGBPerDay = t+y+f+i+m;
+    const priceText = document.getElementById('price').textContent.replace(' ₫','').replace(/\./g,'');
+    const price = parseInt(priceText || '0', 10);
+    const item = { ts: new Date().toISOString(), mode: billing, vals, totalGBPerDay, price };
+    const hist = getHistory();
+    hist.unshift(item);
+    localStorage.setItem('vnm_hist', JSON.stringify(hist.slice(0,3)));
+    renderHistory();
+  }
+
+  function getHistory(){
+    try { return JSON.parse(localStorage.getItem('vnm_hist')||'[]'); }
+    catch(e){ return []; }
+  }
+
+  function renderHistory(){
+    const hist = getHistory();
+    if (!hist.length){
+      historyWrap.innerHTML = '<div class="hint">No history yet. Click “Save to History”.</div>';
+      return;
+    }
+    historyWrap.innerHTML = hist.map((h,idx)=>{
+      const d = new Date(h.ts);
+      const label = d.toLocaleString();
+      const chips = ['TikTok','YouTube','Facebook','Instagram','M365'].map((n,i)=>`<span class="pill">${n}: ${h.vals[i]} GB/d</span>`).join(' ');
+      return `<div class="p-3 rounded-xl border border-gray-200">
+        <div class="text-[12px] text-gray-500">${label} • ${h.mode}</div>
+        <div class="text-sm font-semibold mt-1">Total: ${h.totalGBPerDay} GB/day • Price: ${h.price.toLocaleString('vi-VN')} ₫</div>
+        <div class="mt-1 flex flex-wrap gap-1">${chips}</div>
+        <div class="mt-2"><button data-idx="${idx}" class="useBtn btn bg-white border border-gray-300 text-gray-900 text-[12px]">Use this setup</button></div>
+      </div>`;
+    }).join('');
+    historyWrap.querySelectorAll('.useBtn').forEach(btn=>{
+      btn.addEventListener('click', (e)=>{
+        const idx = +e.target.getAttribute('data-idx');
+        const hist = getHistory();
+        const h = hist[idx];
+        if (!h) return;
+        const [t,y,f,i,m] = h.vals;
+        sliders[0].value = t; sliders[1].value = y; sliders[2].value = f; sliders[3].value = i; sliders[4].value = m;
+        setBilling(h.mode);
+        calc();
+      });
+    });
+  }
+
+  function setBilling(mode){
+    billing = mode;
+    document.getElementById('modeLabel').textContent = (mode==='weekly') ? 'week' : 'month';
+    document.getElementById('weeklyTab').classList.toggle('active', mode==='weekly');
+    document.getElementById('monthlyTab').classList.toggle('active', mode==='monthly');
+  }
+
+  document.getElementById('weeklyTab').addEventListener('click', ()=>{ setBilling('weekly'); calc(); });
+  document.getElementById('monthlyTab').addEventListener('click', ()=>{ setBilling('monthly'); calc(); });
+  [...sliders, student].forEach(s=> s.addEventListener('input', calc));
+  document.getElementById('payBtn').addEventListener('click', ()=>{
+    const phone = document.getElementById('msisdn').value.trim();
+    if(!phone){ alert('Please enter a Vietnamobile number.'); return; }
+    alert(`Demo MoMo: Payment successful for ${phone}. Data will be credited via Vietnamobile API.`);
+  });
+  document.getElementById('linkBtn').addEventListener('click', ()=>{
+    alert('Demo Vietnamobile API: { createPackage, confirmPayment, creditData }');
+  });
+  document.getElementById('optBtn').addEventListener('click', optimize);
+  document.getElementById('saveBtn').addEventListener('click', saveHistory);
+
+  renderHistory();
+  calc();
+</script>
+</body>
+</html>
